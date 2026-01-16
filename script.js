@@ -14,11 +14,16 @@ function reset(){
     }
 }
 
+const player = {
+    name: "",
+    mark: ""
+};
+
+player.name = prompt("Enter your name:");
+player.mark = prompt("Enter your mark 'X' or 'O':");
+
 boardIndex = prompt("Enter a number between 0-8:");
-playerMark = prompt("Enter your mark 'X' or 'O':");
 
-setMark(boardIndex, playerMark);
+setMark(boardIndex, player.mark);
 getBoard();
 
-reset();
-getBoard();
