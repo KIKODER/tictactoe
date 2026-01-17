@@ -1,10 +1,5 @@
 const boardArray = [null, null, null, null, null, null, null, null, null];
 
-function setMark(index, mark){
-    return boardArray[index] = mark;
-    //later, add function to refuse if cell isn't empty//
-}
-
 function getBoard() {
     return boardArray;
 }
@@ -24,6 +19,25 @@ function createPlayer(name, mark) {
         name: name,
         mark: mark
     }
+}
+
+function setMark(index, mark) {
+    if (!Number.isInteger(index)) return false;
+
+    if (index < 0 || index >= boardArray.length) return false;
+
+    if (boardArray[index] !== null) return false;
+
+    boardArray[index] = mark;
+    return true;
+}
+
+function setIndex(playerName) {
+    let input = prompt(`${playerName}, enter a number between 0-8:`);
+    while (input === null || input.trim() === "" || Number.isNaN(Number(input))) {
+        input = prompt(`Invalid input. ${playerName}, enter a number between 0-8:`);
+    }
+    return Number(input);
 }
 
 function getValidMark(promptText) {
@@ -53,11 +67,32 @@ const mark2 = switchMark(mark1);
 const player1 = createPlayer(name1, mark1);
 const player2 = createPlayer(name2, mark2);
 
-boardIndex = prompt("Enter a number between 0-8:");
+let boardIndex = setIndex(player1.name);
 
-setMark(boardIndex, player1.mark);
+while (!setMark(boardIndex, player1.mark)) {
+    boardIndex = setIndex(player1.name);
+}
+
 logBoard();
 
-console.log(player1.mark);
-console.log(player2.mark);
+console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
+console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
 
+boardIndex = setIndex(player2.name);
+
+while (!setMark(boardIndex, player2.mark)) {
+    boardIndex = setIndex(player2.name);
+}
+
+logBoard();
+
+function playRound() {
+    
+}
+
+//check player turn
+//ask player for index
+//check if avaliable
+//check if win
+//switch player
+//repeat
