@@ -67,28 +67,20 @@ const mark2 = switchMark(mark1);
 const player1 = createPlayer(name1, mark1);
 const player2 = createPlayer(name2, mark2);
 
-let boardIndex = setIndex(player1.name);
-
-while (!setMark(boardIndex, player1.mark)) {
-    boardIndex = setIndex(player1.name);
-}
-
-logBoard();
-
 console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
 console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
 
-boardIndex = setIndex(player2.name);
-
-while (!setMark(boardIndex, player2.mark)) {
-    boardIndex = setIndex(player2.name);
+function playRound(player) {
+    boardIndex = setIndex(player.name);
+    while (!setMark(boardIndex, player.mark)) {
+        boardIndex = setIndex(player.name);
+    }
+    logBoard();
 }
 
-logBoard();
-
-function playRound() {
-    
-}
+playRound(player1);
+playRound(player2);
+playRound(player1);
 
 //check player turn
 //ask player for index
