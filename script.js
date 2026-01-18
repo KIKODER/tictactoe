@@ -70,7 +70,7 @@ const player2 = createPlayer(name2, mark2);
 console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
 console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
 
-function playRound(player) {
+function playTurn(player) {
     boardIndex = setIndex(player.name);
     while (!setMark(boardIndex, player.mark)) {
         boardIndex = setIndex(player.name);
@@ -78,9 +78,9 @@ function playRound(player) {
     logBoard();
 }
 
-playRound(player1);
-playRound(player2);
-playRound(player1);
+playTurn(player1);
+playTurn(player2);
+playTurn(player1);
 
 //check player turn
 //ask player for index
