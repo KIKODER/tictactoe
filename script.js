@@ -58,6 +58,10 @@ function switchMark(mark) {
     return mark === "X" ? "O" : "X";
 }
 
+function switchPlayer(player) {
+    return player === player1 ? player2 : player1;
+}
+
 const name1 = prompt("Enter player 1's name:");
 const mark1 = getValidMark("Enter player 1's mark ('X' or 'O'):");
 
@@ -66,6 +70,8 @@ const mark2 = switchMark(mark1);
 
 const player1 = createPlayer(name1, mark1);
 const player2 = createPlayer(name2, mark2);
+
+var currentPlayer = player1;
 
 console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
 console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
@@ -76,6 +82,11 @@ function playTurn(player) {
         boardIndex = setIndex(player.name);
     }
     logBoard();
+}
+
+function playRound() {
+    let gameOver = false;
+    //More shit goes here//
 }
 
 playTurn(player1);
