@@ -79,15 +79,19 @@ console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
 console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
 
 function playTurn(player) {
-    boardIndex = setIndex(player.name);
+    let boardIndex = setIndex(player.name);
     while (!setMark(boardIndex, player.mark)) {
         boardIndex = setIndex(player.name);
     }
     logBoard();
 }
 
+function checkWin(playerMark) {
+    ;
+}
+
 function playRound() {
-    current
+    ;
 }
 
 playTurn(player1);
