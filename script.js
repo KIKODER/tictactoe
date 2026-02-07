@@ -1,6 +1,15 @@
 const boardArray = [null, null, null, null, null, null, null, null, null];
 
-const winLines = [[0, 1, 2], [3, 4 ,5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+const winLines = [
+    [0, 1, 2], 
+    [3, 4 ,5], 
+    [6, 7, 8], 
+    [0, 3, 6], 
+    [1, 4, 7], 
+    [2, 5, 8], 
+    [0, 4, 8], 
+    [2, 4, 6]
+];
 
 function getBoard() {
     return boardArray;
@@ -86,17 +95,25 @@ function playTurn(player) {
     logBoard();
 }
 
-function checkWin(playerMark) {
-    ;
+function checkWin() {
+    let win = false;
+    for (let i = 0; i < winLines.length; i++) {
+        
+        console.log(winLines[i][0]);
+        console.log(winLines[i][1]);
+        console.log(winLines[i][2]);
+    };
 }
 
 function playRound() {
     ;
 }
 
-playTurn(player1);
-playTurn(player2);
-playTurn(player1);
+//playTurn(player1);
+//playTurn(player2);
+//playTurn(player1);
+
+checkWin();
 
 //check player turn
 //ask player for index
