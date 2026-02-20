@@ -116,18 +116,27 @@ function checkTie() {
 }
 
 function playRound() {
-    ;
+    let gameOver = false;
+
+    while (!gameOver) {
+        playTurn(currentPlayer);
+
+        const winningLine = checkWin(currentPlayer.mark);
+        if (winningLine) {
+            console.log(`${currentPlayer.name} wins!`);
+            console.log(`Winning line: ${winningLine.join(", ")}`);
+            gameOver = true;
+            continue;
+        }
+
+        if (checkTie()) {
+            console.log("It's a tie!");
+            gameOver = true;
+            continue;
+        }
+
+        currentPlayer = switchPlayer(currentPlayer);
+    }
 }
 
-//playTurn(player1);
-//playTurn(player2);
-//playTurn(player1);
-
-checkWin();
-
-//check player turn
-//ask player for index
-//check if avaliable
-//check if win
-//switch player
-//repeat
+playRound();
