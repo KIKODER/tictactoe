@@ -108,6 +108,13 @@ function checkWin(mark) {
     return null;
 }
 
+function checkTie() {
+    for (let i = 0; i < boardArray.length; i++) {
+        if (boardArray[i] === null) return false;
+    }
+    return true;
+}
+
 function playRound() {
     ;
 }
