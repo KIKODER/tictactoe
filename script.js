@@ -95,14 +95,17 @@ function playTurn(player) {
     logBoard();
 }
 
-function checkWin() {
-    let win = false;
+function checkWin(mark) {
     for (let i = 0; i < winLines.length; i++) {
-        
-        console.log(winLines[i][0]);
-        console.log(winLines[i][1]);
-        console.log(winLines[i][2]);
-    };
+        const [a, b, c] = winLines[i];
+        if (
+            boardArray[a] === mark && 
+            boardArray[b] === mark && 
+            boardArray[c] === mark) {
+                return winLines[i];
+            }
+    }
+    return null;
 }
 
 function playRound() {
