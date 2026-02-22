@@ -1,46 +1,52 @@
-const boardArray = [null, null, null, null, null, null, null, null, null];
-
-const winLines = [
-    [0, 1, 2], 
-    [3, 4 ,5], 
-    [6, 7, 8], 
-    [0, 3, 6], 
-    [1, 4, 7], 
-    [2, 5, 8], 
-    [0, 4, 8], 
-    [2, 4, 6]
-];
-
-function getBoard() {
-    return boardArray;
-}
-
-function logBoard() {
-    console.log(boardArray);
-}
-
-function reset(){
-    for (let i = 0; i < boardArray.length; i++) {
-        boardArray[i] = null;
+//Game Board logic//
+const gameBoard = (() => {
+    const boardArray = [null, null, null, null, null, null, null, null, null];
+    const winLines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+    const getBoard = () => {
+        return boardArray;
     }
-}
+    const logBoard = () => {
+        console.log(boardArray);
+    }
+    const reset = () => {
+        for (let i = 0; i < boardArray.length; i++) {
+            boardArray[i] = null;
+        }
+    }
+    const setMark = (index, mark) => {
+        if (!Number.isInteger(index)) return false;
+
+        if (index < 0 || index >= boardArray.length) return false;
+
+        if (boardArray[index] !== null) return false;
+
+        boardArray[index] = mark;
+        return true;
+    }
+
+    return { boardArray, winLines, getBoard, logBoard, reset, setMark };
+})();
+
+const gameController = (() => {
+
+
+    return { };
+});
 
 function createPlayer(name, mark) {
     return {
         name: name,
         mark: mark
     }
-}
-
-function setMark(index, mark) {
-    if (!Number.isInteger(index)) return false;
-
-    if (index < 0 || index >= boardArray.length) return false;
-
-    if (boardArray[index] !== null) return false;
-
-    boardArray[index] = mark;
-    return true;
 }
 
 function setIndex(playerName) {
