@@ -1,16 +1,6 @@
-//Game Board logic//
+//Gameboard logic//
 const gameBoard = (() => {
     const boardArray = [null, null, null, null, null, null, null, null, null];
-    const winLines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
     const getBoard = () => {
         return boardArray;
     }
@@ -33,13 +23,44 @@ const gameBoard = (() => {
         return true;
     }
 
-    return { boardArray, winLines, getBoard, logBoard, reset, setMark };
+    return { boardArray, getBoard, logBoard, reset, setMark };
 })();
 
+//Game loop logic//
 const gameController = (() => {
+    const board = gameBoard();
+    const winLines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+    let currentPlayer = player1;
+    let gameOver = false;
+    const checkWin = (mark) => {
+        for (let i = 0; i < winLines.length; i++) {
+            const [a, b, c] = winLines[i];
+            if (
+                boardArray[a] === mark &&
+                boardArray[b] === mark &&
+                boardArray[c] === mark) {
+                return winLines[i];
+            }
+        }
+        return null;
+    }
+    const checkTie = () => {
+        for (let i = 0; i < boardArray.length; i++) {
+            if (boardArray[i] === null) return false;
+        }
+        return true;
+    }
 
-
-    return { };
+    return { board, winLines, currentPlayer, gameOver, checkWin, checkTie };
 });
 
 function createPlayer(name, mark) {
@@ -88,8 +109,6 @@ const mark2 = switchMark(mark1);
 const player1 = createPlayer(name1, mark1);
 const player2 = createPlayer(name2, mark2);
 
-let currentPlayer = player1;
-
 console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
 console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
 
@@ -101,29 +120,7 @@ function playTurn(player) {
     logBoard();
 }
 
-function checkWin(mark) {
-    for (let i = 0; i < winLines.length; i++) {
-        const [a, b, c] = winLines[i];
-        if (
-            boardArray[a] === mark && 
-            boardArray[b] === mark && 
-            boardArray[c] === mark) {
-                return winLines[i];
-            }
-    }
-    return null;
-}
-
-function checkTie() {
-    for (let i = 0; i < boardArray.length; i++) {
-        if (boardArray[i] === null) return false;
-    }
-    return true;
-}
-
 function playRound() {
-    let gameOver = false;
-
     while (!gameOver) {
         playTurn(currentPlayer);
 
