@@ -1,17 +1,13 @@
 //Gameboard logic//
 const gameBoard = (() => {
-    const boardArray = [null, null, null, null, null, null, null, null, null];
-    const getBoard = () => {
-        return boardArray;
-    }
-    const logBoard = () => {
-        console.log(boardArray);
-    }
+    const boardArray = Array(9).fill(null);
+    const getBoard = () => boardArray;
+    const logBoard = () => console.log(boardArray);
     const reset = () => {
         for (let i = 0; i < boardArray.length; i++) {
             boardArray[i] = null;
         }
-    }
+    };
     const setMark = (index, mark) => {
         if (!Number.isInteger(index)) return false;
 
@@ -21,14 +17,19 @@ const gameBoard = (() => {
 
         boardArray[index] = mark;
         return true;
-    }
+    };
 
     return { boardArray, getBoard, logBoard, reset, setMark };
 })();
 
+//Player factory//
+function createPlayer(name, mark) {
+    return { name, mark };
+}
+
 //Game loop logic//
 const gameController = (() => {
-    const board = gameBoard();
+    const board = gameBoard;
     const winLines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -45,9 +46,9 @@ const gameController = (() => {
         for (let i = 0; i < winLines.length; i++) {
             const [a, b, c] = winLines[i];
             if (
-                boardArray[a] === mark &&
-                boardArray[b] === mark &&
-                boardArray[c] === mark) {
+                board.getBoard()[a] === mark &&
+                board.getBoard()[b] === mark &&
+                board.getBoard()[c] === mark) {
                 return winLines[i];
             }
         }
@@ -61,14 +62,7 @@ const gameController = (() => {
     }
 
     return { board, winLines, currentPlayer, gameOver, checkWin, checkTie };
-});
-
-function createPlayer(name, mark) {
-    return {
-        name: name,
-        mark: mark
-    }
-}
+})();
 
 function setIndex(playerName) {
     let input = prompt(`${playerName}, enter a number between 0-8:`);
