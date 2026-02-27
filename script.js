@@ -146,5 +146,9 @@ const gameController = (() => {
     return { start, playRound, getBoard: board.getBoard };
 })();
 
+//DOM logic//
+
+const playboard = document.querySelector("#playboard");
+
 gameController.start();
 gameController.playRound();
