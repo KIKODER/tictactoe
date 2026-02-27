@@ -116,8 +116,8 @@ const gameController = (() => {
         const name2 = prompt("Enter player 2's name:");
         const mark2 = switchMark(mark1);
 
-        const player1 = createPlayer(name1, mark1);
-        const player2 = createPlayer(name2, mark2);
+        player1 = createPlayer(name1, mark1);
+        player2 = createPlayer(name2, mark2);
         currentPlayer = player1;
 
         console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
