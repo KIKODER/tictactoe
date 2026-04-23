@@ -150,5 +150,5 @@ const gameController = (() => {
 
 const playboard = document.querySelector("#playboard");
 
-gameController.start();
-gameController.playRound();
+//gameController.start();//
+//gameController.playRound();//
