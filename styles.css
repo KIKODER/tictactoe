@@ -1,3 +1,21 @@
+#playboard {
+    border: 3px solid red;
+}
+
 .playgrid {
-    color:  blue;
+    border: 1px solid blue;
+    background-color: rgb(37, 138, 138);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    height: 600px;
+}
+
+.playgrid div {
+    border: 1px solid green;
+    background-color: rgb(155, 225, 225);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
