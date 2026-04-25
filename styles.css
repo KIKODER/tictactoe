@@ -1,10 +1,16 @@
-#playboard {
+:root {
+    --cell-color: white;
+    --cell-highlight: rgb(233, 233, 233);
+    --background-color: rgb(169, 212, 174);
+}
+
+#play-screen {
     border: 3px solid red;
 }
 
 .playgrid {
     border: 1px solid blue;
-    background-color: rgb(37, 138, 138);
+    background-color: var(--background-color);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -14,8 +20,13 @@
 
 .playgrid div {
     border: 1px solid green;
-    background-color: rgb(155, 225, 225);
+    background-color: var(--cell-color);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 150px;
+}
+
+.playgrid div:hover {
+    background-color: var(--cell-highlight);
 }
