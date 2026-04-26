@@ -4,8 +4,6 @@ const gameBoard = (() => {
 
     const getBoard = () => boardArray;
 
-    const logBoard = () => console.log(boardArray);
-
     const reset = () => {
         for (let i = 0; i < boardArray.length; i++) {
             boardArray[i] = null;
@@ -21,7 +19,7 @@ const gameBoard = (() => {
         return true;
     };
 
-    return { getBoard, logBoard, reset, setMark };
+    return { getBoard, reset, setMark };
 })();
 
 //Player factory//
@@ -49,29 +47,8 @@ const gameController = (() => {
     let currentPlayer = null;
     let gameOver = false;
 
-    const isValidMark = (mark) => {
-        const cleaned = mark.trim().toUpperCase();
-        return cleaned === "X" || cleaned === "O";
-    };
-
-    const getValidMark = (promptText) => {
-        let mark = prompt(promptText);
-        while (mark === null || !isValidMark(mark)) {
-            mark = prompt("Invalid mark. Please enter 'X' or 'O':");
-        }
-        return mark.trim().toUpperCase();
-    };
-
     const switchMark = (mark) => {
         return mark === "X" ? "O" : "X";
-    };
-
-    const setIndex = (playerName) => {
-        let input = prompt(`${playerName}, enter a number between 0-8:`);
-        while (input === null || input.trim() === "" || Number.isNaN(Number(input))) {
-            input = prompt(`Invalid input. ${playerName}, enter a number between 0-8:`);
-        }
-        return Number(input);
     };
 
     const switchPlayer = () => (currentPlayer === player1 ? player2 : player1);
@@ -98,52 +75,67 @@ const gameController = (() => {
         return true;
     };
 
-    const playTurn = () => {
-        let boardIndex = setIndex(currentPlayer.name);
-        while (!board.setMark(boardIndex, currentPlayer.mark)) {
-            boardIndex = setIndex(currentPlayer.name);
-        }
-        board.logBoard();
-    };
-
-    const start = () => {
+    const start = (name1, name2, mark1) => {
         board.reset();
         gameOver = false;
 
-        const name1 = prompt("Enter player 1's name:");
-        const mark1 = getValidMark("Enter player 1's mark ('X' or 'O'):");
-
-        const name2 = prompt("Enter player 2's name:");
         const mark2 = switchMark(mark1);
 
         player1 = createPlayer(name1, mark1);
         player2 = createPlayer(name2, mark2);
         currentPlayer = player1;
-
-        console.log(`Hello, I'm ${player1.name} and I'm playing ${player1.mark}`);
-        console.log(`Hello, I'm ${player2.name} and I'm playing ${player2.mark}`);
     };
 
-    const playRound = () => {
-        while (!gameOver) {
-            playTurn();
-            const winningLine = checkWin(currentPlayer.mark);
-            if (winningLine) {
-                console.log(`${currentPlayer.name} wins!`);
-                console.log(`Winning line: ${winningLine.join(", ")}`);
-                gameOver = true;
-                continue;
-            }
-            if (checkTie()) {
-                console.log("It's a tie!");
-                gameOver = true;
-                continue;
-            }
-            currentPlayer = switchPlayer();
+    const playMove = (index) => {
+        if (gameOver) {
+            return { success: false, message: "Game is over." };
         }
+
+        const placed = board.setMark(index, currentPlayer.mark);
+
+        if (!placed) {
+            return { success: false, message: "That cell is already taken." };
+        }
+
+        const winningLine = checkWin(currentPlayer.mark);
+        if (winningLine) {
+            gameOver = true;
+            return {
+                success: true,
+                winner: currentPlayer,
+                tie: false,
+                gameOver: true,
+                winningLine
+            };
+        }
+
+        if (checkTie()) {
+            gameOver = true;
+            return {
+                success: true,
+                winner: null,
+                tie: true,
+                gameOver: true,
+                winningLine: null
+            };
+        }
+
+        switchPlayer();
+
+        return {
+            success: true,
+            winner: null,
+            tie: false,
+            gameOver: false,
+            winningLine: null
+        };
     };
 
-    return { start, playRound, getBoard: board.getBoard };
+    const getBoard = () => board.getBoard();
+    const getCurrentPlayer = () => currentPlayer;
+    const isGameOver = () => gameOver;
+
+    return { start, playMove, getBoard, getCurrentPlayer, isGameOver };
 })();
 
 //DOM logic//
