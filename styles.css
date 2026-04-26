@@ -4,8 +4,31 @@
     --background-color: rgb(169, 212, 174);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .hidden {
     display: none;
+}
+
+#start-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid purple;
 }
 
 #play-screen {
