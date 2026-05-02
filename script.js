@@ -140,7 +140,95 @@ const gameController = (() => {
 
 //DOM logic//
 
-const playboard = document.querySelector("#playboard");
+const displayController = (() => {
+    const startScreen = document.querySelector("#start-screen");
+    const formScreen = document.querySelector("#form-screen");
+    const playScreen = document.querySelector("#play-screen");
+    const setupForm = document.querySelector("#setup-form");
+    const player1Input = document.querySelector("#p1name");
+    const player2Input = document.querySelector("#p2name");
+    const player1MarkInput = document.querySelector("#p1mark");
+    const formError = document.querySelector("#form-error");
+    const statusDisplay = document.querySelector("#status-display");
+    const cells = document.querySelectorAll(".cell");
 
-//gameController.start();//
-//gameController.playRound();//
+    const renderBoard = () => {
+        const board = gameController.getBoard();
+
+        cells.forEach((cell, index) => {
+            cell.textContent = board[index] ?? "";
+        });
+    };
+
+    const renderStatus = (result = null) => {
+        if (result && result.winner) {
+            statusDisplay.textContent = `${result.winner.name} wins!`;
+            return;
+        }
+
+        if (result && result.tie) {
+            statusDisplay.textContent = "It's a tie!";
+            return;
+        }
+
+        const currentPlayer = gameController.getCurrentPlayer();
+        statusDisplay.textContent = `${currentPlayer.name}'s turn (${currentPlayer.mark})`;
+    };
+
+    const showGameScreen = () => {
+        startScreen.classList.add("hidden");
+        formScreen.classList.add("hidden");
+        playScreen.classList.remove("hidden");
+    };
+
+    const validateForm = () => {
+        const player1Name = player1Input.value.trim();
+        const player2Name = player2Input.value.trim();
+        const player1Mark = player1MarkInput.value;
+
+        if (!player1Name || !player2Name || !player1Mark) {
+            formError.textContent = "Please fill out all fields.";
+            return null;
+        }
+
+        formError.textContent = "";
+
+        return {
+            player1Name,
+            player2Name,
+            player1Mark
+        };
+    };
+
+    setupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formValues = validateForm();
+
+        if (!formValues) return;
+
+        gameController.start(
+            formValues.player1Name,
+            formValues.player2Name,
+            formValues.player1Mark
+        );
+
+        renderBoard();
+        renderStatus();
+        showGameScreen();
+    });
+
+    cells.forEach((cell) => {
+        cell.addEventListener("click", () => {
+            const index = Number(cell.dataset.index);
+            const result = gameController.playMove(index);
+
+            if (!result.success) return;
+
+            renderBoard();
+            renderStatus(result);
+        });
+    });
+
+    return { renderBoard, renderStatus };
+})();
