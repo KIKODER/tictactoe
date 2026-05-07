@@ -51,7 +51,9 @@ const gameController = (() => {
         return mark === "X" ? "O" : "X";
     };
 
-    const switchPlayer = () => (currentPlayer === player1 ? player2 : player1);
+    const switchPlayer = () => {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    };
 
     const checkWin = (mark) => {
         const state = board.getBoard();
