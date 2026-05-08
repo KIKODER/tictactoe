@@ -153,6 +153,8 @@ const displayController = (() => {
     const formError = document.querySelector("#form-error");
     const statusDisplay = document.querySelector("#status-display");
     const cells = document.querySelectorAll(".cell");
+    const resetButton = document.querySelector("#button-reset");
+    const quitButton = document.querySelector("#button-quit");
 
     const renderBoard = () => {
         const board = gameController.getBoard();
@@ -230,6 +232,14 @@ const displayController = (() => {
             renderBoard();
             renderStatus(result);
         });
+    });
+
+    resetButton.addEventListener("click", () => {
+        board.reset();
+    });
+
+    quitButton.addEventListener("click", () => {
+        board.reset();
     });
 
     return { renderBoard, renderStatus };
