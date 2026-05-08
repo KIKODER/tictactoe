@@ -133,11 +133,17 @@ const gameController = (() => {
         };
     };
 
+    const resetGame = () => {
+        board.reset();
+        gameOver = false;
+        currentPlayer = player1;
+    }
+
     const getBoard = () => board.getBoard();
     const getCurrentPlayer = () => currentPlayer;
     const isGameOver = () => gameOver;
 
-    return { start, playMove, getBoard, getCurrentPlayer, isGameOver };
+    return { start, playMove, getBoard, getCurrentPlayer, isGameOver, resetGame };
 })();
 
 //DOM logic//
@@ -235,11 +241,13 @@ const displayController = (() => {
     });
 
     resetButton.addEventListener("click", () => {
-        board.reset();
+        gameController.resetGame();
+        renderBoard();
+        renderStatus();
     });
 
     quitButton.addEventListener("click", () => {
-        board.reset();
+        location.reload();
     });
 
     return { renderBoard, renderStatus };
