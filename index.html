@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>TicTacToe</title>
+    <title>Tick N' Tacks</title>
 </head>
 <body>
     <main>
         <section id="start-screen">
-            <div class="title">Tic Tac Toe</div>
+            <div class="title">Tick N' Tacks</div>
         </section>
 
         <section id="form-screen">
@@ -18,12 +18,14 @@
                 <input type="text" id="p1name" name="p1name">
                 <label for="p2name">Player 2:</label>
                 <input type="text" id="p2name" name="p2name">
-                <label for="p1mark">Player 1's mark:</label>
-                <select id="p1mark" name="p1mark">
-                    <option value="">Choose a mark:</option>
-                    <option value="X">X</option>
-                    <option value="O">O</option>
-                </select>
+                <div>
+                    <label for="p1mark">Player 1's mark:</label>
+                        <select id="p1mark" name="p1mark">
+                            <option value=""></option>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                        </select>
+                </div>
                 <p id="form-error" class="error-message"></p>
                 <button class="button-start">start</button>
             </form>
