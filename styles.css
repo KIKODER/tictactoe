@@ -1,6 +1,9 @@
 :root {
-    --theme-one: red;
-    --theme-two: blue;
+    --theme-one: rgb(223, 80, 80);
+    --theme-two: rgb(81, 81, 230);
+    --error-msg: red;
+    --button-color: rgb(215, 215, 215);
+    --button-highlight: rgb(228, 228, 228);
     --cell-color: white;
     --cell-highlight: rgb(233, 233, 233);
     --background-color: rgb(169, 212, 174);
@@ -37,17 +40,27 @@ form {
 }
 
 form label {
-    color: green;
+    color: rgb(63, 63, 63);
     font-weight: bold;
+}
+
+.error-message {
+    color: var(--error-msg);
 }
 
 button {
     border: none;
     cursor: pointer;
+    background-color: var(--button-color);
+}
+
+button:hover {
+    scale: 1.1;
+    background-color: var(--button-highlight);
 }
 
 .button-start {
-    font-size: 20px;
+    font-size: 15px;
     padding: 5px 10px;
     border-radius: 15px;
 }
@@ -77,4 +90,12 @@ button {
 
 .cell:hover {
     background-color: var(--cell-highlight);
+}
+
+.theme-one {
+    color: var(--theme-one);
+}
+
+.theme-two {
+    color: var(--theme-two);
 }

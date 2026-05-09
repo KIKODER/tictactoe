@@ -166,7 +166,18 @@ const displayController = (() => {
         const board = gameController.getBoard();
 
         cells.forEach((cell, index) => {
-            cell.textContent = board[index] ?? "";
+            const value = board[index];
+
+            cell.textContent = value ?? "";
+            cell.classList.remove("theme-one", "theme-two");
+
+            if (value === "X") {
+                cell.classList.add("theme-one");
+            }
+
+            if (value === "O") {
+                cell.classList.add("theme-two");
+            }
         });
     };
 
